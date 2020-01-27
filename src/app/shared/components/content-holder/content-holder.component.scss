@@ -1,0 +1,43 @@
+.content-wrapper {
+    position: relative;
+    top: 100px;
+    color: white;
+    margin-left: 100px;
+    margin-right: 120px;
+
+    .content-title {
+        font-size: 40px;
+        font-weight: 100;
+        letter-spacing: 1px;
+    }
+    .content-sub-header {
+        font-size: 22px;
+        font-weight: 100;
+        letter-spacing: 1px;
+        color: #838386;
+    }
+    .content {
+        margin-top: 50px;
+        color: #757679;
+        height: 150px;
+    }
+    .content-btn {
+        padding: 14px;
+        border: none;
+        color: #dadada;
+        font-size: 14px;
+        letter-spacing: 1px;
+        font-family: inherit;
+        font-weight: 400;
+    }
+
+    .login-btn {
+        width: 200px;
+        background: #00a876;
+    }
+
+    .register-btn {
+        width: 300px;
+        background: #202737;
+    }
+}

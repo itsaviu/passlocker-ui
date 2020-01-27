@@ -1,9 +1,9 @@
-@import 'themes';
-
-@import '~@nebular/theme/styles/globals';
+@import '../node_modules/bootstrap/scss/bootstrap';
 @import "~bootstrap/dist/css/bootstrap.css";  
+@import './app/shared/styles/styles.scss';
 
-@include nb-install() {
-  @include nb-theme-global();
-};
 /* You can add global styles to this file, and also import other style files */
+
+.icon-style {
+  filter: invert(46%) sepia(61%) saturate(5195%) hue-rotate(141deg) brightness(99%) contrast(101%);
+}

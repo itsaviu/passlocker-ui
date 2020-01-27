@@ -1,0 +1,12 @@
+.title {
+    position: relative;
+    margin: 10% 5% 5%;
+    font-size: 21px;
+    color: white;
+    font-weight: 700;
+    .title-icon {
+        filter: invert(46%) sepia(61%) saturate(5195%) hue-rotate(141deg) brightness(99%) contrast(101%);
+        position: relative;
+        bottom: 4px;
+    }
+}
