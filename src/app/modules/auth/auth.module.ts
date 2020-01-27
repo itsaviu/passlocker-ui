@@ -2,9 +2,12 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AuthRoutingModule } from  './auth.routing.module';
 import { AuthComponent } from './auth.component';
-import { NbLayoutModule } from '@nebular/theme';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { SharedModule } from 'src/app/shared/shared.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
+
 
 @NgModule({
   declarations: [
@@ -14,8 +17,12 @@ import { RegisterComponent } from './register/register.component';
   ],
   imports: [
     CommonModule,
+    SharedModule,
+    FormsModule,
     AuthRoutingModule,
-    NbLayoutModule,
+    FormsModule,
+    ReactiveFormsModule,
+    TooltipModule
   ],
   providers: [],
 })

@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [{
   path: 'auth',
-  loadChildren: './components/auth/auth.module#AuthModule'
+  loadChildren: './modules/auth/auth.module#AuthModule'
 }, {
   path: '',
   redirectTo: 'auth', 
