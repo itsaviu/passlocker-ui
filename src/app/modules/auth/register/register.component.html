@@ -1,0 +1,32 @@
+<div class="row"  style="height: 100vh; width: 100%;margin: 0px">
+    <div class="col-7 left-pane">
+        <app-container-box></app-container-box>
+        <app-content-holder [feeder]="authInheritableData"(invoker)="redirectToLogin()"></app-content-holder>
+    </div>
+    <div class="col-5 right-pane">
+        <div class="auth-form-container register-container">
+                <div class="auth-title">Account Info</div>
+                <form class="_form-element" (ngSubmit)="onSubmit(register)"  #register="ngForm" [formGroup]="registerationForm">
+                        <div class="input-wrapper">
+                                <input type="text" formControlName="username" placeholder="Your username" class="_form-control"/>
+                                <div class="icon-wrapper" *ngIf="registerationForm.get('username').invalid && registerationForm.get('username').touched">
+                                        <i class="medium material-icons icon-align" tooltip="{{getUserNameValidationMsg()}}">error_outline</i>
+                                </div>
+                        </div>
+                        <div class="input-wrapper">
+                                <input type="email" formControlName="emailId" placeholder="Your email" class="_form-control"/>
+                                <div class="icon-wrapper" *ngIf="registerationForm.get('emailId').invalid && registerationForm.get('emailId').touched">
+                                        <i class="medium material-icons icon-align" tooltip="{{getEmailValidationMsg()}}">error_outline</i>
+                                </div>
+                        </div>
+                        <div class="input-wrapper">
+                                <input type="password" formControlName="password" placeholder="Password" class="_form-control"/>
+                                <div class="icon-wrapper" *ngIf="registerationForm.get('password').invalid && registerationForm.get('password').touched">
+                                        <i class="medium material-icons icon-align" tooltip="{{getPwdValidationMsg()}}">error_outline</i>
+                                </div>
+                        </div>
+                        <button class="form-btn" [disabled]="registerationForm.status !== 'VALID'"> Register</button>
+                </form>
+        </div>
+    </div>
+</div>
