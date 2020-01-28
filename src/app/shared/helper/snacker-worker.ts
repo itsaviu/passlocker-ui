@@ -3,7 +3,7 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 
 
 @Injectable()
-export class SnackerService {
+export class SnackerWorker {
 
   constructor(private _snackBar: MatSnackBar) { }
 

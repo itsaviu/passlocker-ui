@@ -25,7 +25,10 @@
                                         <i class="medium material-icons icon-align" tooltip="{{getPwdValidationMsg()}}">error_outline</i>
                                 </div>
                         </div>
-                        <button class="form-btn" [disabled]="registerationForm.status !== 'VALID'"> Register</button>
+                        <button class="form-btn" [disabled]="registerationForm.status !== 'VALID'">
+                                <mat-spinner [hidden]="!loading" diameter=20 color="primary" style="margin: auto"></mat-spinner>
+                                <div [hidden]="loading" >Register</div> 
+                        </button>
                 </form>
         </div>
     </div>

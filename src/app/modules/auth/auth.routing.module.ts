@@ -15,7 +15,7 @@ const routes: Routes = [{
       component: RegisterComponent
     }, {
       path: '',
-      redirectTo: 'register'
+      redirectTo: 'login'
     }
   ]
 }];

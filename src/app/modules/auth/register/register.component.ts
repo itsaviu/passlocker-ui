@@ -4,6 +4,8 @@ import { dataFeeder } from 'src/app/constants/AuthInheritableData';
 import { AuthAppholder } from 'src/app/models/authappholder';
 import { from } from 'rxjs';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { AuthService } from 'src/app/service/auth.service';
+import { SnackerWorker } from 'src/app/shared/helper/snacker-worker';
 
 @Component({
   selector: 'app-register',
@@ -14,8 +16,9 @@ export class RegisterComponent implements OnInit {
 
   private authInheritableData: AuthAppholder = dataFeeder('REGISTER');
   private registerationForm: FormGroup;
+  private loading: boolean=false;
   
-  constructor(private router: Router, private fb: FormBuilder) { }
+  constructor(private router: Router, private fb: FormBuilder, private authService: AuthService, private snacker: SnackerWorker) { }
 
   ngOnInit() {
     this.registerationForm = this.fb.group({
@@ -50,7 +53,21 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit(e) {
-    console.log(e);
+
+    this.loading = true;
+    this.authService.registerUser(e.value).subscribe((resp) => {
+      this.snacker.openSnackBar("Sucessfully registered", 'X');
+      this.router.navigateByUrl("/auth/login");
+      this.loading = false;
+      console.log(resp);
+    }, (error) => {
+      if(error.status === 400)
+        this.snacker.openSnackBar(error.error.message, 'X');
+      else 
+        this.snacker.openSnackBar('Something went wrong !', 'X');
+      this.loading = false;
+      console.log(error);
+    })
   }
 
   redirectToLogin() {

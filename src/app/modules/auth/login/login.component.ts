@@ -3,6 +3,9 @@ import { Router } from '@angular/router';
 import { dataFeeder } from 'src/app/constants/AuthInheritableData';
 import { AuthAppholder } from 'src/app/models/authappholder';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { AuthService } from 'src/app/service/auth.service';
+import { SnackerWorker } from 'src/app/shared/helper/snacker-worker';
+import { SessionManagerService } from 'src/app/service/session-manager.service';
 
 
 @Component({
@@ -14,15 +17,10 @@ export class LoginComponent implements OnInit {
 
   private authInheritableData: AuthAppholder = dataFeeder("LOGIN");
   private loginForm: FormGroup;
+  private loading: boolean = false;
 
-  user = {
-    emailIds: '',
-    password: ''
-  };
-
-
-
-  constructor(private router: Router, private fb: FormBuilder) { }
+  constructor(private router: Router, private fb: FormBuilder, private authService: AuthService, private snacker: SnackerWorker,
+    private sessionManager: SessionManagerService) { }
 
   ngOnInit() {
     this.loginForm = this.fb.group({
@@ -53,6 +51,22 @@ export class LoginComponent implements OnInit {
 
   onSubmit(e) {
     console.log(this.loginForm);
+    this.loading = true;
+    this.authService.loginUser(e.value).subscribe((resp) => {
+      this.snacker.openSnackBar("Login Sucessful !", "X");
+      console.log(resp);
+      this.sessionManager.storeSession(resp);
+      this.router.navigateByUrl('/pages');
+      this.loading = false;
+    }, (error) => {
+      if(error.status === 400)  
+        this.snacker.openSnackBar(error.error.message, "X");
+      if(error.status === 401)  
+        this.snacker.openSnackBar("User not found, please verify your credentials", "X");
+      else 
+        this.snacker.openSnackBar('Something went wrong !', "X");  
+      this.loading = false;
+    })
   }
 
 }

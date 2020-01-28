@@ -19,7 +19,10 @@
                                         <i class="medium material-icons icon-align" tooltip="{{getPwdValidationMsg()}}">error_outline</i>
                                 </div>
                         </div>
-                        <button class="form-btn" [disabled]="loginForm.status !== 'VALID'">Login</button>
+                        <button class="form-btn" [disabled]="loginForm.status !== 'VALID'">
+                                <mat-spinner [hidden]="!loading" diameter=20 color="primary" style="margin: auto"></mat-spinner>
+                                <div [hidden]="loading" >Login</div> 
+                        </button>
                 </form>
             </div>
     </div>

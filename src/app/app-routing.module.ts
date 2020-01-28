@@ -5,6 +5,9 @@ const routes: Routes = [{
   path: 'auth',
   loadChildren: './modules/auth/auth.module#AuthModule'
 }, {
+  path: 'pages',
+  loadChildren: './modules/pages/pages.module#PagesModule'
+},{
   path: '',
   redirectTo: 'auth', 
   pathMatch: 'full' 
