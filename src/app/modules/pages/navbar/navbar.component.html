@@ -1,0 +1,19 @@
+<mat-toolbar class="tool-bar">
+    <div>
+        <img src="/assets/images/lock.svg" class="title-icon"/> 
+        <span class="title-style">{{title}} </span>
+    </div>
+    <span class="example-fill-remaining-space"></span>
+    
+    <div [matMenuTriggerFor]="menu" class="profile">
+        <span class="profile-value"> {{profile}} </span>
+        <img src="/assets/images/nopic-user.svg" class="user-icon">
+        <i class="medium material-icons drop-position">arrow_drop_down</i>
+    </div>
+    <mat-menu #menu="matMenu" class="menu-bg">
+        <div mat-menu-item class="menu-item" (click)="logout()">Logout</div>
+    </mat-menu>
+        
+    
+    
+</mat-toolbar>

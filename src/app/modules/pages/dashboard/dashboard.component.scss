@@ -1,0 +1,9 @@
+.body_wrapper {
+    max-width: 80rem;
+    margin: 30px auto 0px auto;
+    height: calc(100vh - 64px - 58px);
+    flex-wrap: nowrap;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0,0,0,.04);
+}
