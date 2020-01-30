@@ -7,6 +7,7 @@ import { AuthGuard } from 'src/app/shared/helper/auth-guard';
 const routes: Routes = [{
   path: '',
   component: PagesComponent,
+  canActivate: [AuthGuard],
   children: [{
     path: 'dashboard',
     component: DashboardComponent

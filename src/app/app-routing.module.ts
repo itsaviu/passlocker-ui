@@ -9,11 +9,11 @@ const routes: Routes = [{
   loadChildren: './modules/pages/pages.module#PagesModule'
 },{
   path: '',
-  redirectTo: 'auth', 
+  redirectTo: 'pages', 
   pathMatch: 'full' 
 }, {
   path: '**',
-  redirectTo: 'auth' 
+  redirectTo: 'pages' 
 }];
 
 @NgModule({
