@@ -1,12 +1,14 @@
 .tool-bar {
-    background-color: #07a286;
+    background-color: #151921;
+    color: white;
     .title-icon {
-        filter: invert(93%) sepia(13%) saturate(764%) hue-rotate(105deg) brightness(92%) contrast(84%);
+        filter: invert(46%) sepia(61%) saturate(5195%) hue-rotate(141deg) brightness(99%) contrast(101%);
         position: relative;
         bottom: 2px;
         margin-right: 3px;
     }
     .title-style {
+        
         font-size: 17px;
         font-weight: bold;
         font-family: sans-serif;
@@ -16,6 +18,15 @@
     }
     .profile{
         cursor: pointer;
+        .profile-chip {
+            background-color: #e0e0e0;
+            color: #1c1c1c;
+            font-size: 15px;
+            font-weight: 500;
+            /* padding: 9px; */
+            border-radius: 19px;
+            padding: 7px 12px;
+        }
         .user-icon {
             position: relative;
             bottom: 1px;

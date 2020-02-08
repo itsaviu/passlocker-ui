@@ -17,6 +17,14 @@ export class SessionManagerService {
     localStorage.removeItem('LOCKER_SECRET');
   }
 
+  getToken(): string {
+    return localStorage.getItem('LOCKER_TOKEN')
+  }
+
+  getSecret(): string {
+    return localStorage.getItem('LOCKER_SECRET')
+  }
+
   isSessionAvailable() {
     if(!localStorage.getItem('LOCKER_TOKEN') || !localStorage.getItem('LOCKER_SECRET')){
       this.clearSession();

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { SessionManagerService } from 'src/app/service/session-manager.service';
+import { SessionManagerService } from 'src/app/utils/session-manager.service';
 
 @Injectable({
   providedIn: 'root'

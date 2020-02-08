@@ -1,0 +1,15 @@
+<div style="padding-bottom: 31px;">
+  <div class="create-vault-title-container">
+    <span style="font-weight: 200;font-size: 19px;">Create Vault</span>
+    <mat-icon class="mat-icon-rtl-mirror" style="float: right; color: #646464; cursor: pointer;" (click)="closeDialog()">close</mat-icon>
+  </div>
+  <mat-form-field class="full-width">
+      <mat-label>Vault</mat-label>
+      <input matInput [(ngModel)]="name">
+    </mat-form-field> 
+    <button class="vault-btn" [disabled]="loading" (click)="createVault()">
+      <mat-spinner [hidden]="!loading" diameter=20 color="accent" style="margin: auto"></mat-spinner>
+      <div [hidden]="loading">Create</div> 
+    </button>
+</div>
+  

@@ -5,7 +5,7 @@ import { AuthAppholder } from 'src/app/models/authappholder';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { AuthService } from 'src/app/service/auth.service';
 import { SnackerWorker } from 'src/app/shared/helper/snacker-worker';
-import { SessionManagerService } from 'src/app/service/session-manager.service';
+import { SessionManagerService } from 'src/app/utils/session-manager.service';
 
 
 @Component({

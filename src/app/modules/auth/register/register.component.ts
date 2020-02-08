@@ -38,7 +38,7 @@ export class RegisterComponent implements OnInit {
 
   getPwdValidationMsg() {
     if(this.registerationForm.get('password').errors.required) {
-      return "Password id is required";
+      return "Password is required";
     } else if(this.registerationForm.get('password').errors.minlength) {
       return "Password must be alteast 8 characters";
     }

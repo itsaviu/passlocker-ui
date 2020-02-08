@@ -6,8 +6,8 @@
     <span class="example-fill-remaining-space"></span>
     
     <div [matMenuTriggerFor]="menu" class="profile">
-        <span class="profile-value"> {{profile}} </span>
-        <img src="/assets/images/nopic-user.svg" class="user-icon">
+        <span class="profile-value"> {{profile | customTitleCase}} </span>
+        <span class="profile-chip">A</span>
         <i class="medium material-icons drop-position">arrow_drop_down</i>
     </div>
     <mat-menu #menu="matMenu" class="menu-bg">

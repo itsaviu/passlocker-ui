@@ -8,7 +8,10 @@ import { SharedModule } from './shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { AuthService } from './service/auth.service';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { CustomHttpsInterceptor } from './utils/httpinterceptor';
+import { ManagerService } from './service/manager.service';
+import { CustomTitleCasePipe } from './shared/pipes/custom-title-case.pipe';
 
 
 @NgModule({
@@ -25,7 +28,7 @@ import { HttpClientModule } from '@angular/common/http';
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [ AuthService ],
+  providers: [ AuthService, ManagerService, {provide: HTTP_INTERCEPTORS, useClass: CustomHttpsInterceptor, multi: true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
