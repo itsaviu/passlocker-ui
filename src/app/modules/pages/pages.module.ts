@@ -17,9 +17,11 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatInputModule} from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { FormsModule } from '@angular/forms';
+import { VaultTreeComponent } from './components/vault-tree/vault-tree.component';
+import { VaultContainerComponent } from './components/vault-container/vault-container.component';
 
 @NgModule({
-  declarations: [PagesComponent, DashboardComponent, NavbarComponent, FooterComponent, CreateVaultComponent],
+  declarations: [PagesComponent, DashboardComponent, NavbarComponent, FooterComponent, CreateVaultComponent, VaultTreeComponent, VaultContainerComponent],
   imports: [
     CommonModule,
     PagesRoutingModule,

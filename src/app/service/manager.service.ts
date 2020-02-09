@@ -7,7 +7,15 @@ export interface VaultList {
   id: number,
   name: string,
   createdAt: string,
-  subFolders?: VaultList[]
+  subFolders?: VaultList[],
+  vaultList?: Vault[]
+}
+
+export interface Vault {
+  id: number,
+  name: string,
+  login: string,
+  url: string
 }
 
 @Injectable()
@@ -17,20 +25,34 @@ export class ManagerService {
 
   private vaultTree = new Subject<any>();
 
+  private vaultContainer = new Subject<any>();
+
   updateVaultTree(value) {
     this.vaultTree.next(value);
+  }
+
+  updateVaultContainer(value) {
+    this.vaultContainer.next(value);
   }
 
   checkIfVaultTreeUpdate(): Observable<object> {
     return this.vaultTree.asObservable();
   }
 
-  fetchVault(): Observable<VaultList[]> {
+  checkIfVaultContainerUpdate(): Observable<object> {
+    return this.vaultContainer.asObservable();
+  }
+
+  fetchVaultTree(): Observable<VaultList[]> {
       return <Observable <VaultList[]>> this.httpService.get(environment.MANAGER_URL + '/folders/lists');
   }
 
   createFolder(payload) {
     return this.httpService.post(environment.MANAGER_URL + '/folders/create', payload);
+  }
+
+  fetchVaultDetails(id): Observable<VaultList> {
+    return <Observable<VaultList>> this.httpService.get(environment.MANAGER_URL + '/folders/' + id)
   }
 
 }

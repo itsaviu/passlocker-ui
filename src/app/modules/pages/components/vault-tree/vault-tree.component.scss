@@ -1,0 +1,48 @@
+.side-nav {
+    margin: 80px 25px 0px 25px;
+    border-top: 1px solid #ececec;
+    border-bottom: 1px solid #ececec;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    .title-container{
+      margin-bottom: 5px;
+    }
+    .vault-title {
+      font-size: 15px;
+      letter-spacing: 1px;
+      font-weight: bold;
+    }
+    .folder-tree-invisible {
+        display: none;
+      }
+      
+      .folder-tree ul,
+      .folder-tree li {
+        margin-top: 0;
+        color: #646464;
+        margin-bottom: 0;
+        list-style-type: none;
+      }
+
+      .mat-tree-node{
+        color: #646464;
+      }
+  }
+
+.mat-tree-node { 
+    min-height: 30px
+}
+
+.mat-icon-spacing {
+    margin-right: 4px
+}
+
+
+.toggle-btn:focus {
+    outline: none;
+}
+
+.background-highlight span, .background-highlight {
+    font-weight: bold;
+    color: #151820;
+}

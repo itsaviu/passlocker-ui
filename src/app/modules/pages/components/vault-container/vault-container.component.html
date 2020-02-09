@@ -1,0 +1,15 @@
+<div class="_vault-container">
+  <div *ngIf="vaultList"  style="border-bottom: 1px solid #ececec;">
+    <div style="height: 110px;">
+      <span class="_title">{{vaultList.name}}</span>
+      <button class="create-pwd-btn " [disabled]="loading" (click)="createVault()">
+          <mat-icon class="mat-icon-rtl-mirror" style="float: left; cursor: pointer;" >add</mat-icon>
+          <div>Add password</div> 
+        </button>
+    </div>
+    <div class="_vault-container-footer">
+        <mat-icon class="mat-icon-rtl-mirror" class="folder-icon">create_new_folder</mat-icon>
+        <span class="folder-title">Create folder</span>
+    </div>
+  </div>
+</div>
