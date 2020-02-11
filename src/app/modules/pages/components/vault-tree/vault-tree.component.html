@@ -5,14 +5,14 @@
     </div>
     <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" class="folder-tree">
             <mat-tree-node (click)="activeNode = node" *matTreeNodeDef="let node" [ngClass]="{ 'background-highlight': activeNode === node }" matTreeNodeToggle>
-              <li (click)="selectNode(node.id)" class="mat-tree-node" (click)="activeNode = node" style="cursor: pointer">
+              <li (click)="selectNode(node)" class="mat-tree-node" (click)="activeNode = node" style="cursor: pointer">
                 <button mat-icon-button disabled class="toggle-btn"></button>
                 <mat-icon class="mat-icon-rtl-mirror mat-icon-spacing">{{ activeNode == node ? 'folder_open' : 'folder'}}</mat-icon> 
                 <span>{{node.name}}</span>
               </li>
             </mat-tree-node>
             <mat-nested-tree-node *matTreeNodeDef="let node; when: hasChild">
-              <li (click)="selectNode(node.id)" style="cursor: pointer">
+              <li (click)="selectNode(node)" style="cursor: pointer">
                 <div class="mat-tree-node" (click)="activeNode = node">
                   <button mat-icon-button matTreeNodeToggle class="toggle-btn"
                           [attr.aria-label]="'toggle ' + node.name">
@@ -20,7 +20,7 @@
                       {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
                     </mat-icon>
                   </button>
-                  <mat-icon class="mat-icon-rtl-mirror mat-icon-spacing">{{ activeParentNode == node.id ? 'folder_open' : 'folder'}}</mat-icon> 
+                  <mat-icon class="mat-icon-rtl-mirror mat-icon-spacing">{{ activeNode == node ? 'folder_open' : 'folder'}}</mat-icon> 
                   <span (appClickOutside)="changeParentNode()" [ngClass]="isSelected(node.id)">{{node.name}}</span>
                 </div>
                 <ul [class.folder-tree-invisible]="!treeControl.isExpanded(node)">

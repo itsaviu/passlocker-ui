@@ -13,7 +13,7 @@ import { CreateVaultComponent } from '../create-vault/create-vault.component';
 export class VaultTreeComponent implements OnInit {
   
   public activeNode;
-  public activeParentNode;
+  public activeParentNode: VaultList;
 
   treeControl = new NestedTreeControl<VaultList>(node => node.subFolders);
   dataSource = new MatTreeNestedDataSource<VaultList>();
@@ -39,31 +39,46 @@ export class VaultTreeComponent implements OnInit {
   fetchVaultTree(initialCall = false) {
     this.managerService.fetchVaultTree().subscribe((resp: VaultList[]) => {
       this.dataSource.data = resp;
-      if(initialCall && resp.length > 0) {
-        this.activeParentNode = resp[0].id;
-        this.managerService.updateVaultContainer(this.activeParentNode);
+      if(resp.length > 0) {
+        this.activeParentNode = resp[0];
+        this.activeNode = resp[0];
       }
+      if(this.activeParentNode)
+        this.managerService.updateVaultContainer(this.activeNode);
       console.log(resp);
     }, (error) => {
       this.snackerWorker.openSnackBar('Something went wrong', 'X')
     });    
   }
 
-  selectNode(id) {
-    if(this.activeParentNode != id) 
-      this.managerService.updateVaultContainer(id);
-    this.activeParentNode = id;
+  selectNode(node) {
+    if(node && this.activeParentNode && this.activeParentNode.id != node.id) {
+      this.activeParentNode = node;
+      this.managerService.updateVaultContainer(node);
+    }
   }
 
   isSelected(id) {
-    if(this.activeParentNode === id) 
+    if(this.activeParentNode && this.activeParentNode.id === id) 
       return 'background-highlight';
     return '';
   }
 
   changeParentNode() {
     if(!this.activeNode)
-      this.activeParentNode = '';
+      this.activeParentNode = null;
+  }
+
+  findNode(node: VaultList, nodeList: VaultList[]) {
+    if(this.activeParentNode && this.activeParentNode.id === node.id) 
+      return true;
+
+    nodeList.forEach((n => {
+      if( n.vaultList.length > 0) {
+          this.findNode(node, n.subFolders);
+      }
+    }));
+
   }
 
 }

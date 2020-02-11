@@ -1,0 +1,26 @@
+<div>
+  <div *ngIf="vaultList">
+    <div class="folder-section section">
+        <div class="header">
+          FOLDER
+        </div>
+        <mat-action-list *ngFor="let item of vaultList.subFolders">
+          <button mat-list-item class="hover-btn" (click)="save()">
+             <mat-icon class="mat-icon-rtl-mirror mat-icon-spacing" style="margin-right: 8px">folder_open</mat-icon> 
+             <span class="folder-name">{{item.name}}</span>
+          </button>
+        </mat-action-list>
+    </div>
+    <div class="password-section section">
+        <div class="header">
+            PASSWORD
+        </div>
+        <mat-action-list *ngFor="let item of vaultList.vaultList">
+            <button mat-list-item class="hover-btn" (click)="save()">
+               <mat-icon class="mat-icon-rtl-mirror mat-icon-spacing" style="margin-right: 8px">folder_open</mat-icon> 
+               <span class="folder-name">{{item.name}}</span>
+            </button>
+        </mat-action-list>
+    </div>
+  </div>
+</div>

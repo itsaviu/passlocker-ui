@@ -2,14 +2,17 @@
   <div *ngIf="vaultList"  style="border-bottom: 1px solid #ececec;">
     <div style="height: 110px;">
       <span class="_title">{{vaultList.name}}</span>
-      <button class="create-pwd-btn " [disabled]="loading" (click)="createVault()">
+      <button class="create-pwd-btn vault-btn" [disabled]="loading">
           <mat-icon class="mat-icon-rtl-mirror" style="float: left; cursor: pointer;" >add</mat-icon>
           <div>Add password</div> 
         </button>
     </div>
-    <div class="_vault-container-footer">
+    <div class="_vault-container-footer" >
+      <div class="_sub-folder" (click)="createVault(vaultList.id)">
         <mat-icon class="mat-icon-rtl-mirror" class="folder-icon">create_new_folder</mat-icon>
         <span class="folder-title">Create folder</span>
+      </div>
     </div>
   </div>
+  <app-vault-folder-section></app-vault-folder-section>
 </div>

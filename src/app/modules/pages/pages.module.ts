@@ -19,9 +19,12 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { FormsModule } from '@angular/forms';
 import { VaultTreeComponent } from './components/vault-tree/vault-tree.component';
 import { VaultContainerComponent } from './components/vault-container/vault-container.component';
+import { VaultFolderSectionComponent } from './components/vault-folder-section/vault-folder-section.component';
+import {MatListModule} from '@angular/material/list';
+
 
 @NgModule({
-  declarations: [PagesComponent, DashboardComponent, NavbarComponent, FooterComponent, CreateVaultComponent, VaultTreeComponent, VaultContainerComponent],
+  declarations: [PagesComponent, DashboardComponent, NavbarComponent, FooterComponent, CreateVaultComponent, VaultTreeComponent, VaultContainerComponent, VaultFolderSectionComponent],
   imports: [
     CommonModule,
     PagesRoutingModule,
@@ -34,7 +37,8 @@ import { VaultContainerComponent } from './components/vault-container/vault-cont
     MatDialogModule,
     MatInputModule,
     MatProgressSpinnerModule,
-    FormsModule
+    FormsModule,
+    MatListModule
   ],
   entryComponents: [CreateVaultComponent]
 })

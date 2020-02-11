@@ -1,7 +1,11 @@
-import { Component, OnInit, Output } from '@angular/core';
-import { MatDialogRef } from '@angular/material';
+import { Component, OnInit, Output, Inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { ManagerService } from 'src/app/service/manager.service';
-import { EventEmitter } from 'protractor';
+
+
+export interface DialogData {
+  id: number;
+}
 
 @Component({
   selector: 'app-create-vault',
@@ -12,8 +16,10 @@ export class CreateVaultComponent implements OnInit {
 
   loading = false;
   name: string = "";
+  hideError = true;
 
-  constructor(private dialogRef: MatDialogRef<CreateVaultComponent>, private managerService: ManagerService) { }
+  constructor(private dialogRef: MatDialogRef<CreateVaultComponent>, private managerService: ManagerService,
+    @Inject(MAT_DIALOG_DATA) public data: DialogData) { }
 
   ngOnInit() {
   }
@@ -23,14 +29,28 @@ export class CreateVaultComponent implements OnInit {
   }
 
   createVault() {
-    this.loading = true;
-    const payload = {
+ 
+    if(!this.name || this.name.trim() === "") {
+      this.hideError = false;
+      return;
+    } 
+
+    let payload = {
       name: this.name
     };
+
+    if(this.data) 
+      payload["parentId"] = this.data.id;
+
+    this.loading = true;
     this.managerService.createFolder(payload).subscribe((resp) => {
         this.loading = false;
         this.managerService.updateVaultTree(1);
         this.closeDialog();
     });
+  }
+
+  clear() { 
+    this.hideError = true;
   }
 }

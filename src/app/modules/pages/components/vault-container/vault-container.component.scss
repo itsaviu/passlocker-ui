@@ -3,18 +3,29 @@
     ._vault-container-footer {
         padding-bottom: 10px;
         padding-left: 10px;
-        .folder-icon {
-            float: left;
+        ._sub-folder {
+            -webkit-transition: 0.25s;
+            transition: 0.25s;
+            width: 126px;
             cursor: pointer;
-            color: #7d7d7d;
-            font-size: 25px;
+            .folder-icon {
+                float: left;
+                cursor: pointer;
+                color: #7d7d7d;
+                font-size: 25px;
+            }
+            .folder-title {
+                color: #7d7d7d;
+                position: relative;
+                padding-left: 6px;
+                top: .5px;
+                font-size: 14px;
+            }
+            
         }
-        .folder-title {
-            color: #7d7d7d;
-            position: relative;
-            padding-left: 6px;
-            top: .5px;
-            font-size: 14px;
+        ._sub-folder:hover, :focus{
+            box-shadow: 0 0.5em 0.5em -0.4em var(--hover);
+            transform: translateY(-0.05em);
         }
     }
     ._title {
@@ -23,18 +34,11 @@
         font-size: 25px;
     }
     .create-pwd-btn {
-        padding: 10px;
-        font-size: 15px;
         position: relative;
         float: right;
         top: 27px;
-        border: none;
         width: 190px;
-        color: white;
         letter-spacing: 1px;
-        background: #00a876;
-        font-family: inherit;
-        //border-radius: 25px;
-        font-weight: 400;
     }
 }
+
