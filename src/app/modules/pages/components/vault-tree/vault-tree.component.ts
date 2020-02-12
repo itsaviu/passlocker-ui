@@ -30,7 +30,8 @@ export class VaultTreeComponent implements OnInit {
 
   openDialog() {
     this.dialog.open(CreateVaultComponent, {
-      width: '450px'
+      width: '450px',
+      data: { title: "Create Vault" }
     })
   }
 
@@ -43,8 +44,10 @@ export class VaultTreeComponent implements OnInit {
         this.activeParentNode = resp[0];
         this.activeNode = resp[0];
       }
-      if(this.activeParentNode)
+      if(this.activeParentNode) {
         this.managerService.updateVaultContainer(this.activeNode);
+        this.managerService.updateVaultFolderSection(this.activeNode.id);
+      }
       console.log(resp);
     }, (error) => {
       this.snackerWorker.openSnackBar('Something went wrong', 'X')
@@ -55,6 +58,7 @@ export class VaultTreeComponent implements OnInit {
     if(node && this.activeParentNode && this.activeParentNode.id != node.id) {
       this.activeParentNode = node;
       this.managerService.updateVaultContainer(node);
+      this.managerService.updateVaultFolderSection(node.id);
     }
   }
 

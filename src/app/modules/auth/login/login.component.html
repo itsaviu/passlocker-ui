@@ -6,7 +6,7 @@
     <div class="col-5 right-pane">
             <div class="login-container auth-form-container">
                 <div class="auth-title">Or login to your account</div>
-                <form class="_form-element" (ngSubmit)="onSubmit(login)" #login="ngForm" [formGroup]="loginForm">
+                <form class="_form-element" (ngSubmit)="onSubmit(login)" [formGroup]="loginForm">
                         <div class="input-wrapper">
                                 <input type="email" name="emailId" formControlName="emailId" class="_form-control" placeholder="Your email">
                                 <div class="icon-wrapper" *ngIf="loginForm.get('emailId').invalid && loginForm.get('emailId').touched">

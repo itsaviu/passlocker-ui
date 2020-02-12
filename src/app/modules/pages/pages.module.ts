@@ -16,15 +16,16 @@ import { CreateVaultComponent } from './components/create-vault/create-vault.com
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatInputModule} from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { VaultTreeComponent } from './components/vault-tree/vault-tree.component';
 import { VaultContainerComponent } from './components/vault-container/vault-container.component';
 import { VaultFolderSectionComponent } from './components/vault-folder-section/vault-folder-section.component';
 import {MatListModule} from '@angular/material/list';
+import { CreatePasswordComponent } from './components/create-password/create-password.component';
 
 
 @NgModule({
-  declarations: [PagesComponent, DashboardComponent, NavbarComponent, FooterComponent, CreateVaultComponent, VaultTreeComponent, VaultContainerComponent, VaultFolderSectionComponent],
+  declarations: [PagesComponent, DashboardComponent, NavbarComponent, FooterComponent, CreateVaultComponent, VaultTreeComponent, VaultContainerComponent, VaultFolderSectionComponent, CreatePasswordComponent],
   imports: [
     CommonModule,
     PagesRoutingModule,
@@ -38,8 +39,9 @@ import {MatListModule} from '@angular/material/list';
     MatInputModule,
     MatProgressSpinnerModule,
     FormsModule,
+    ReactiveFormsModule,
     MatListModule
   ],
-  entryComponents: [CreateVaultComponent]
+  entryComponents: [CreateVaultComponent, CreatePasswordComponent]
 })
 export class PagesModule { }

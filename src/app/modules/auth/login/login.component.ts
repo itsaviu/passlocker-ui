@@ -49,10 +49,9 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  onSubmit(e) {
-    console.log(this.loginForm);
+  onSubmit() {
     this.loading = true;
-    this.authService.loginUser(e.value).subscribe((resp) => {
+    this.authService.loginUser(this.loginForm.value).subscribe((resp) => {
       this.snacker.openSnackBar("Login Sucessful !", "X");
       console.log(resp);
       this.sessionManager.storeSession(resp);

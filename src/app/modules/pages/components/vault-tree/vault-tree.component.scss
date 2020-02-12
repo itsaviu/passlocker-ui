@@ -21,6 +21,7 @@
         margin-top: 0;
         color: #646464;
         margin-bottom: 0;
+        letter-spacing: .02em;
         list-style-type: none;
       }
 
@@ -44,5 +45,9 @@
 
 .background-highlight span, .background-highlight {
     font-weight: bold;
-    color: #151820;
+    color: #47474a;
+}
+
+.node-name {
+  padding-left: 5px;
 }

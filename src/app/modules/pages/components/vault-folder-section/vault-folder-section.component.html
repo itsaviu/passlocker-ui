@@ -1,26 +1,58 @@
 <div>
   <div *ngIf="vaultList">
-    <div class="folder-section section">
+    <div *ngIf="vaultList.subFolders.length > 0" class="folder-section section">
         <div class="header">
-          FOLDER
+          FOLDERS
         </div>
-        <mat-action-list *ngFor="let item of vaultList.subFolders">
-          <button mat-list-item class="hover-btn" (click)="save()">
-             <mat-icon class="mat-icon-rtl-mirror mat-icon-spacing" style="margin-right: 8px">folder_open</mat-icon> 
-             <span class="folder-name">{{item.name}}</span>
+        <mat-action-list class="folder-action-list" *ngFor="let item of vaultList.subFolders">
+          <button mat-list-item class="hover-btn" (click)="loadData(item)">
+             <div class="icon-folder" style="margin-right: 5px;"></div>
+             <span class="attribute-name">{{item.name}}</span>
           </button>
         </mat-action-list>
     </div>
-    <div class="password-section section">
-        <div class="header">
-            PASSWORD
-        </div>
-        <mat-action-list *ngFor="let item of vaultList.vaultList">
-            <button mat-list-item class="hover-btn" (click)="save()">
-               <mat-icon class="mat-icon-rtl-mirror mat-icon-spacing" style="margin-right: 8px">folder_open</mat-icon> 
-               <span class="folder-name">{{item.name}}</span>
-            </button>
-        </mat-action-list>
+    <div *ngIf="vaultList.vaultList.length > 0" class="password-section section">
+        <table class="table table-borderless">
+        <thead>
+          <tr>
+            <td class="header" scope="col">NAME</td>
+            <td class="header" scope="col">LOGIN</td>
+            <td class="header" scope="col">URL</td>
+            <td class="header" scope="col">NOTES</td>
+          </tr>
+        </thead>
+        <tbody *ngFor="let item of vaultList.vaultList">
+          <tr class="pwd-item">
+            <td>
+              <span class="attribute-chip">{{getChipValue(item.name)}}</span>
+              <span class="attribute-name">{{item.name}}</span>
+            </td>
+            <td>
+                <span class="attribute-name">{{item.login}}</span>
+            </td>
+            <td>
+              <a [attr.href]="'//'+item.url" target="_blank">{{item.url}}</a>
+            </td>
+            <td>
+              <span class="attribute-name">{{item.notes}}</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
+  </div>
+  <div class="vault-empty-section" [style.margin-top]="vaultList ? '6%' : '16%'" *ngIf="!vaultList || (vaultList.subFolders.length == 0 && vaultList.vaultList.length == 0)">
+      <img src="/assets/images/empty-vault.svg" class="title-icon"/> 
+      <div *ngIf="!vaultList" class="vault-empty-add-pwd" (click)="openCreateVault()"> 
+          <span>Create your vault</span>
+          <img class="add-icon" src="https://img.icons8.com/flat_round/64/000000/plus.png">
+      </div>
+      <div *ngIf="vaultList">
+        <div class="vault-empty-header">The vault is empty</div>
+        <div class="vault-empty-add-pwd" (click)="createPassword()"> 
+            <span>Add your first password, click here </span>
+            <img class="add-icon" src="https://img.icons8.com/flat_round/64/000000/plus.png">
+        </div>
+      </div>
   </div>
 </div>

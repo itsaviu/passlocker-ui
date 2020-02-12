@@ -27,6 +27,8 @@ export class ManagerService {
 
   private vaultContainer = new Subject<any>();
 
+  private vaultFolderSection = new Subject<any>();
+
   updateVaultTree(value) {
     this.vaultTree.next(value);
   }
@@ -35,12 +37,20 @@ export class ManagerService {
     this.vaultContainer.next(value);
   }
 
+  updateVaultFolderSection(value) {
+    this.vaultFolderSection.next(value);
+  }
+
   checkIfVaultTreeUpdate(): Observable<object> {
     return this.vaultTree.asObservable();
   }
 
   checkIfVaultContainerUpdate(): Observable<object> {
     return this.vaultContainer.asObservable();
+  }
+
+  checkIfVaultFolderSectionUpdate(): Observable<object> {
+    return this.vaultFolderSection.asObservable();
   }
 
   fetchVaultTree(): Observable<VaultList[]> {
@@ -53,6 +63,10 @@ export class ManagerService {
 
   fetchVaultDetails(id): Observable<VaultList> {
     return <Observable<VaultList>> this.httpService.get(environment.MANAGER_URL + '/folders/' + id)
+  }
+
+  storePassword(payload) {
+    return this.httpService.post(environment.MANAGER_URL + '/vault/store', payload);
   }
 
 }

@@ -1,28 +1,81 @@
 .folder-section {
+    border-bottom: 1px solid #ececec;
+    padding-bottom: 20px;
     .hover-btn {
         color: #525252;
+        height: 36px;
     }
     .hover-btn:hover {
         background-color: aliceblue;
     }
-    .folder-name {
-        font-size: 15px;
-        padding-top: 1px;
-        font-weight: 400;
+    .folder-action-list{
+        padding: 0px;
     }
 }
 
 .password-section {
-    border-top: 1px solid #ececec;
-    padding-top: 20px;
+    .pwd-item:hover {
+        background-color: aliceblue;
+        cursor: pointer;
+    }
+    .attribute-chip {
+        background-color: #d7d7d7;
+        padding: 4px 7px 4px 7px;
+        border-radius: 4px;
+        font-size: 14px;
+        margin-right: 3px;
+    }
 }
 
+
+.vault-empty-section {
+    img {
+        display: block;
+        margin: 0 auto;
+    }
+    .vault-empty-header {
+        text-align: center;
+        font-weight: 500;
+        margin-top: 8px;
+        font-size: 20px;
+        margin-top: 10px;
+        font-family: sans-serif;
+        color: #585858;
+    }
+    .vault-empty-add-pwd {
+        text-align: center;
+        font-family: sans-serif;
+        color: #949494;
+        cursor: pointer;
+        .add-icon {
+            display: inline;
+            margin: 0px;
+            width: 22px;
+            margin-left: 4px;
+            margin-bottom: 4px;
+        }
+    }
+
+    .vault-empty-add-pwd:hover{
+        text-decoration: underline;
+    }
+}
 .header {
     font-size: 14px;
     letter-spacing: .5px;
+    margin-bottom: 10px;
     font-weight: 500;
 }
 
 .section {
     margin: 25px;
+}
+
+.attribute-name {
+    font-size: 15px;
+    padding-top: 1px;
+    color: #4a4a4a;
+    font-family: Arial;
+    letter-spacing: .06em;
+    font-weight: 400;
 }

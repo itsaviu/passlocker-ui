@@ -5,6 +5,7 @@ import { ManagerService } from 'src/app/service/manager.service';
 
 export interface DialogData {
   id: number;
+  title: string;
 }
 
 @Component({
