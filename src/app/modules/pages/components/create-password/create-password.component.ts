@@ -14,7 +14,8 @@ import { SnackerWorker } from 'src/app/shared/helper/snacker-worker';
 export class CreatePasswordComponent implements OnInit {
 
   private pwdForm: FormGroup;
-  loading = false;
+  loading: boolean = false;
+  hide: boolean = true;
 
   constructor(private fb: FormBuilder, private dialogRef: MatDialogRef<CreatePasswordComponent>, private managerService: ManagerService,
     @Inject(MAT_DIALOG_DATA) public data: PwdDialogData, private snackerWorker: SnackerWorker) { 
@@ -23,12 +24,12 @@ export class CreatePasswordComponent implements OnInit {
 
   ngOnInit() {
     this.pwdForm = this.fb.group({
-      credentials: ["", [Validators.required]],
+      credentials: [this.data.credentials, [Validators.required]],
       folderId: this.data.folderId,
-      login: ["", [Validators.required]],
-      name: ["", [Validators.required]],
-      notes: "",
-      url: ""
+      login: [this.data.login, [Validators.required]],
+      name: [this.data.name, [Validators.required]],
+      notes: this.data.notes,
+      url: this.data.url
     })
   }
 
@@ -58,15 +59,26 @@ export class CreatePasswordComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  submit() {
-    console.log(this.pwdForm.value);
+  submit() {  
     this.managerService.storePassword(this.pwdForm.value).subscribe((resp) => {
      this.managerService.updateVaultFolderSection(this.data.folderId);
      this.dialogRef.close();
     }, (error) => {
       this.snackerWorker.openSnackBar("Something went wrong !", "X");
-    })
-    
+    }) 
+  }
+
+  update() {
+    if(this.data.id) 
+    this.pwdForm.value['id'] = this.data.id;
+    console.log(this.pwdForm.value);  
+
+    this.managerService.updatePassword(this.pwdForm.value).subscribe((resp) => {
+      this.managerService.updateVaultFolderSection(this.data.folderId);
+      this.dialogRef.close();
+     }, (error) => {
+       this.snackerWorker.openSnackBar("Something went wrong !", "X");
+     }) 
   }
 
 }

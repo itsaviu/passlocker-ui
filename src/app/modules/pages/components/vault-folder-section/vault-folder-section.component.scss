@@ -1,5 +1,4 @@
 .folder-section {
-    border-bottom: 1px solid #ececec;
     padding-bottom: 20px;
     .hover-btn {
         color: #525252;
@@ -18,21 +17,56 @@
         background-color: aliceblue;
         cursor: pointer;
     }
-    .attribute-chip {
-        background-color: #d7d7d7;
-        padding: 4px 7px 4px 7px;
-        border-radius: 4px;
-        font-size: 14px;
-        margin-right: 3px;
+}
+
+.password-detail-section {
+    border-left: 1px solid #ececec;
+    padding: 40px;
+    .section {
+        .settings-section {
+            padding: 15px 0px;
+            border-bottom: 2px solid #00a876;
+            .options {
+                color: #696969;
+                font-size: 14px;
+                font-weight: 500;
+                -webkit-transition: 0.25s;
+                transition: 0.25s;
+                cursor: pointer;
+            }
+            .options:hover {
+                box-shadow: 0 0.5em 0.5em -0.4em var(--hover);
+                -webkit-transform: translateY(-0.1em);
+                transform: translateY(-0.1em);
+            }
+        }
+        .detail-section {
+            padding: 24px 16px 5px 6px;
+            border-bottom: 1px solid #ececec;
+            margin: 0px;
+            .col-3 {
+                padding: 0px;
+                color: #737272;
+            }
+            .pwd-credentials {
+                border: none;
+            }
+
+            .pwd-credentials:focus {
+                outline: none;
+            }
+            .option-icon {
+                float: right;
+                width: 18px;
+                cursor: pointer;
+            }
+        }
     }
 }
 
-
 .vault-empty-section {
-    img {
-        display: block;
-        margin: 0 auto;
-    }
+    display: block;
+    margin: 0 auto;
     .vault-empty-header {
         text-align: center;
         font-weight: 500;
@@ -69,6 +103,14 @@
 
 .section {
     margin: 25px;
+}
+
+.attribute-chip {
+    background-color: #d7d7d7;
+    padding: 4px 7px 4px 7px;
+    border-radius: 4px;
+    font-size: 14px;
+    margin-right: 8px;
 }
 
 .attribute-name {

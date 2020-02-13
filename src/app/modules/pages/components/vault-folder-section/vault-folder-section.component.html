@@ -1,6 +1,6 @@
-<div>
-  <div *ngIf="vaultList">
-    <div *ngIf="vaultList.subFolders.length > 0" class="folder-section section">
+<div class="row">
+  <div [ngClass]="selectedVault ? 'col-5': 'col-12'" *ngIf="vaultList">
+    <div *ngIf="vaultList.subFolders.length > 0" class="folder-section section" style="border-bottom: 1px solid #ececec;">
         <div class="header">
           FOLDERS
         </div>
@@ -11,7 +11,7 @@
           </button>
         </mat-action-list>
     </div>
-    <div *ngIf="vaultList.vaultList.length > 0" class="password-section section">
+    <div [hidden]="selectedVault" *ngIf="vaultList.vaultList.length > 0" class="password-section section">
         <table class="table table-borderless">
         <thead>
           <tr>
@@ -22,7 +22,7 @@
           </tr>
         </thead>
         <tbody *ngFor="let item of vaultList.vaultList">
-          <tr class="pwd-item">
+          <tr class="pwd-item" (click)="updateSelectedVault(item)">
             <td>
               <span class="attribute-chip">{{getChipValue(item.name)}}</span>
               <span class="attribute-name">{{item.name}}</span>
@@ -40,8 +40,70 @@
         </tbody>
       </table>
     </div>
+    <div [hidden]="!selectedVault" *ngIf="vaultList.vaultList.length > 0" class="folder-section section">
+        <div class="header">
+            PASSWORDS
+          </div>
+          <mat-action-list class="pwd-item" *ngFor="let item of vaultList.vaultList">
+            <button mat-list-item class="hover-btn" (click)="updateSelectedVault(item)">
+               <span class="attribute-chip">{{getChipValue(item.name)}}</span>
+               <span class="attribute-name">{{item.name}}</span>
+            </button>
+          </mat-action-list>
+    </div>
   </div>
-  <div class="vault-empty-section" [style.margin-top]="vaultList ? '6%' : '16%'" *ngIf="!vaultList || (vaultList.subFolders.length == 0 && vaultList.vaultList.length == 0)">
+  <div [ngClass]="{'col-7': selectedVault}" *ngIf="selectedVault" class="password-detail-section">
+      <div class="header">
+          <span class="attribute-chip" style="font-size: 18px; font-weight: 400;color: #656565;">{{getChipValue(selectedVault.name)}}</span>
+          <span class="attribute-name" style="font-size: 18px;letter-spacing: 0px;">{{selectedVault.name}}</span>
+          <mat-icon class="mat-icon-rtl-mirror" style="float: right; color: #646464; cursor: pointer;"  (click)="clearSelectedVault()">close</mat-icon>
+      </div>
+      <div class="section">
+          <div class="settings-section row">
+              <div class="options"> <img src="/assets/images/settings.svg"/> Settings</div>
+              <div class="options" style="padding-left: 23px;" (click)="editSection()"> <img src="/assets/images/edit.svg"/>  Edit</div>
+          </div>
+          <div>
+            <div class="row detail-section">
+              <div class="col-3">
+                  Login
+              </div>
+              <div class="col-9">
+                {{selectedVault.login}}
+                <img class="option-icon" (click)="copy(selectedVault.login)" src="https://img.icons8.com/material-outlined/24/000000/copy.png">
+              </div>
+            </div>  
+            <div class="row detail-section">
+              <div class="col-3">
+                  Password
+              </div>
+              <div class="col-9">
+                <input [type]="hide ? 'password' : 'text'" class="pwd-credentials" value="{{selectedVault.credentials}}" disabled/>
+                <img class="option-icon" (click)="copy(selectedVault.credentials)" src="https://img.icons8.com/material-outlined/24/000000/copy.png">
+                <img class="option-icon" style="margin-right: 8px;" (click)="toogleHide()" [src]="hide ? 'https://img.icons8.com/material-outlined/24/000000/visible.png' : 'https://img.icons8.com/ios-glyphs/30/000000/hide.png' ">
+              </div>
+            </div>
+            <div class="row detail-section">
+              <div class="col-3">
+                  URL
+              </div>
+              <div class="col-9">
+                  <a [attr.href]="'//'+selectedVault.url" target="_blank">{{selectedVault.url}}</a>
+              </div>
+            </div>
+            <div class="row detail-section">
+              <div class="col-3">
+                  Notes
+              </div>
+              <div class="col-9">
+                {{selectedVault.notes}}
+              </div>
+            </div>
+          </div>
+      </div>
+  </div>
+  <div class="vault-empty-section"  *ngIf="!vaultList || (vaultList.subFolders.length == 0 && vaultList.vaultList.length == 0)">
+    <div [style.margin-top]="vaultList ? '8%' : '18%'">
       <img src="/assets/images/empty-vault.svg" class="title-icon"/> 
       <div *ngIf="!vaultList" class="vault-empty-add-pwd" (click)="openCreateVault()"> 
           <span>Create your vault</span>
@@ -54,5 +116,6 @@
             <img class="add-icon" src="https://img.icons8.com/flat_round/64/000000/plus.png">
         </div>
       </div>
+    </div>  
   </div>
 </div>

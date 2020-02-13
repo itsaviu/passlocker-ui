@@ -15,7 +15,10 @@ export interface Vault {
   id: number,
   name: string,
   login: string,
-  url: string
+  url: string,
+  credentials?: string,
+  notes?: string,
+  createdAt?: string
 }
 
 @Injectable()
@@ -69,4 +72,7 @@ export class ManagerService {
     return this.httpService.post(environment.MANAGER_URL + '/vault/store', payload);
   }
 
+  updatePassword(payload) {
+    return this.httpService.put(environment.MANAGER_URL + '/vault/update', payload);
+  }
 }

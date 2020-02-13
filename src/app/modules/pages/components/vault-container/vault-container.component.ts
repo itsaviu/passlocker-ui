@@ -32,7 +32,7 @@ export class VaultContainerComponent implements OnInit {
   }
 
   createPassword(folderId) {
-    this.pwdDaialog = new PwdDialogData(null, "Add Password",folderId);
+    this.pwdDaialog = new PwdDialogData(null, "Add Password",folderId, '', '', '', '', '', false);
     this.dialog.open(CreatePasswordComponent, {
       width: '550px',
       data: this.pwdDaialog
