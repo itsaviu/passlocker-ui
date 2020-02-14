@@ -40,12 +40,12 @@
         </tbody>
       </table>
     </div>
-    <div [hidden]="!selectedVault" *ngIf="vaultList.vaultList.length > 0" class="folder-section section">
+    <div *ngIf="selectedVault && vaultList.vaultList.length > 0" class="folder-section section">
         <div class="header">
             PASSWORDS
           </div>
           <mat-action-list class="pwd-item" *ngFor="let item of vaultList.vaultList">
-            <button mat-list-item class="hover-btn" (click)="updateSelectedVault(item)">
+            <button mat-list-item class="hover-btn" [ngClass]="{'selected': item.id === selectedVault.id }" (click)="updateSelectedVault(item)">
                <span class="attribute-chip">{{getChipValue(item.name)}}</span>
                <span class="attribute-name">{{item.name}}</span>
             </button>
