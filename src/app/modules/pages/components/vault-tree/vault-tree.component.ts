@@ -4,6 +4,7 @@ import { NestedTreeControl } from '@angular/cdk/tree';
 import { MatTreeNestedDataSource, MatDialog } from '@angular/material';
 import { SnackerWorker } from 'src/app/shared/helper/snacker-worker';
 import { CreateVaultComponent } from '../create-vault/create-vault.component';
+import { VaultTreeWorker } from '../../worker/vault-tree-worker';
 
 @Component({
   selector: 'app-vault-tree',
@@ -12,16 +13,19 @@ import { CreateVaultComponent } from '../create-vault/create-vault.component';
 })
 export class VaultTreeComponent implements OnInit {
   
-  public activeNode;
-  public activeParentNode: VaultList;
+  public activeNode: VaultList;
 
   treeControl = new NestedTreeControl<VaultList>(node => node.subFolders);
   dataSource = new MatTreeNestedDataSource<VaultList>();
 
-  constructor(private managerService: ManagerService, private snackerWorker: SnackerWorker, public dialog: MatDialog) {
-    this.fetchVaultTree(true);    
+  constructor(private managerService: ManagerService, private vaultTreeWorker: VaultTreeWorker, private snackerWorker: SnackerWorker, public dialog: MatDialog) {
+    this.fetchVaultTree(null);    
     this.managerService.checkIfVaultTreeUpdate().subscribe((resp) => {
-      this.fetchVaultTree();
+      this.fetchVaultTree(resp);
+    })
+
+    this.vaultTreeWorker.isTreeStructUpdateNeeded().subscribe((resp) => {
+      this.pushVaultTree(resp, true);
     })
   }
 
@@ -37,52 +41,60 @@ export class VaultTreeComponent implements OnInit {
 
   hasChild = (_: number, node: VaultList) => !!node.subFolders && node.subFolders.length > 0;
 
-  fetchVaultTree(initialCall = false) {
+  fetchVaultTree(toBeActiveNodeId) {
     this.managerService.fetchVaultTree().subscribe((resp: VaultList[]) => {
       this.dataSource.data = resp;
-      if(resp.length > 0) {
-        this.activeParentNode = resp[0];
+      if(resp.length > 0 && !toBeActiveNodeId) {
         this.activeNode = resp[0];
+      } else if(resp.length > 0) {
+        this.pushVaultTree(toBeActiveNodeId.id, toBeActiveNodeId.new);
       }
-      if(this.activeParentNode) {
+      if(this.activeNode) {
         this.managerService.updateVaultContainer(this.activeNode);
         this.managerService.updateVaultFolderSection(this.activeNode.id);
       }
-      console.log(resp);
     }, (error) => {
       this.snackerWorker.openSnackBar('Something went wrong', 'X')
     });    
   }
 
   selectNode(node) {
-    if(node && this.activeParentNode && this.activeParentNode.id != node.id) {
-      this.activeParentNode = node;
+    if(node && this.activeNode && this.activeNode.id != node.id) {
+      this.activeNode = node;
       this.managerService.updateVaultContainer(node);
       this.managerService.updateVaultFolderSection(node.id);
     }
   }
 
-  isSelected(id) {
-    if(this.activeParentNode && this.activeParentNode.id === id) 
-      return 'background-highlight';
-    return '';
+  pushVaultTree(id, selectNode: boolean = true) {
+    let resultNode: VaultList = this.getNodeToPush(id, this.dataSource.data, selectNode);
+    if(resultNode) {
+      this.treeControl.expandDescendants(resultNode);
+    }
   }
 
-  changeParentNode() {
-    if(!this.activeNode)
-      this.activeParentNode = null;
-  }
-
-  findNode(node: VaultList, nodeList: VaultList[]) {
-    if(this.activeParentNode && this.activeParentNode.id === node.id) 
-      return true;
-
-    nodeList.forEach((n => {
-      if( n.vaultList.length > 0) {
-          this.findNode(node, n.subFolders);
+  getNodeToPush(id, nodeList: VaultList[], selectedNode: boolean) {  
+    for(let i = 0; i < nodeList.length ; i++) { 
+      let resultNode: VaultList = this.findNode(id, nodeList[i]);
+      if(resultNode) {
+        this.activeNode = selectedNode ? resultNode : nodeList[i];
+        return nodeList[i];
       }
-    }));
+    }
+    return null;
+  }
 
+  findNode(id, node: VaultList) {
+    if(node.id === id) 
+      return node;
+    
+    for(let i = 0; i < node.subFolders.length ; i++) {
+      let resultNode: VaultList = this.findNode(id, node.subFolders[i]);
+      if(resultNode)
+        return resultNode;
+    }
+
+    return null;
   }
 
 }

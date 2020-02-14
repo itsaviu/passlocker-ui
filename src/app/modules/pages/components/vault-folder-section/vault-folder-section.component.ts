@@ -5,6 +5,7 @@ import { MatDialog } from '@angular/material';
 import { CreateVaultComponent } from '../create-vault/create-vault.component';
 import { PwdDialogData } from 'src/app/models/pwd-dialog-data';
 import { CreatePasswordComponent } from '../create-password/create-password.component';
+import { VaultTreeWorker } from '../../worker/vault-tree-worker';
 
 @Component({
   selector: 'app-vault-folder-section',
@@ -24,7 +25,7 @@ export class VaultFolderSectionComponent {
   @Output("invokeCreatePwd") invokeCreatePwd = new EventEmitter();
 
 
-  constructor(private managerService: ManagerService, private snackerWorker: SnackerWorker, private dialog: MatDialog) {
+  constructor(private managerService: ManagerService, private vaultTreeWroker: VaultTreeWorker, private snackerWorker: SnackerWorker, private dialog: MatDialog) {
     console.log("Init");
     this.managerService.checkIfVaultFolderSectionUpdate().subscribe((resp) => {
       this.fetchVaultDetails(resp);
@@ -50,6 +51,7 @@ export class VaultFolderSectionComponent {
   loadData(item) {
     this.managerService.updateVaultContainer(item);
     this.managerService.updateVaultFolderSection(item.id);
+    this.vaultTreeWroker.updateTreeStruct(item.id);
   }
 
   goToLink(url: string){

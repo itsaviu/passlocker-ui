@@ -60,7 +60,7 @@ export class ManagerService {
       return <Observable <VaultList[]>> this.httpService.get(environment.MANAGER_URL + '/folders/lists');
   }
 
-  createFolder(payload) {
+  createFolder(payload): Observable<Object> {
     return this.httpService.post(environment.MANAGER_URL + '/folders/create', payload);
   }
 

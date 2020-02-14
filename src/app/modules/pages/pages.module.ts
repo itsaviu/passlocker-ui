@@ -22,6 +22,7 @@ import { VaultContainerComponent } from './components/vault-container/vault-cont
 import { VaultFolderSectionComponent } from './components/vault-folder-section/vault-folder-section.component';
 import {MatListModule} from '@angular/material/list';
 import { CreatePasswordComponent } from './components/create-password/create-password.component';
+import { VaultTreeWorker } from './worker/vault-tree-worker';
 
 
 @NgModule({
@@ -42,6 +43,7 @@ import { CreatePasswordComponent } from './components/create-password/create-pas
     ReactiveFormsModule,
     MatListModule
   ],
+  providers: [VaultTreeWorker],
   entryComponents: [CreateVaultComponent, CreatePasswordComponent]
 })
 export class PagesModule { }

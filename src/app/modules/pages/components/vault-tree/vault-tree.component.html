@@ -4,8 +4,8 @@
         <mat-icon class="mat-icon-rtl-mirror" style="float: right; color: #646464; cursor: pointer;" (click)="openDialog()">add_circle_outline</mat-icon>
     </div>
     <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" class="folder-tree">
-            <mat-tree-node (click)="activeNode = node" *matTreeNodeDef="let node" [ngClass]="{ 'background-highlight': activeNode === node }" matTreeNodeToggle>
-              <li (click)="selectNode(node)" class="mat-tree-node" (click)="activeNode = node" style="cursor: pointer">
+            <mat-tree-node *matTreeNodeDef="let node" [ngClass]="{ 'background-highlight': activeNode === node }" matTreeNodeToggle>
+              <li (click)="selectNode(node)" class="mat-tree-node" style="cursor: pointer">
                 <button mat-icon-button disabled class="toggle-btn"></button>
                 <!-- <img  width="29px" src="https://img.icons8.com/color/48/000000/folder-invoices.png"> -->
                 <div *ngIf="activeNode != node" class="icon-folder"></div>
@@ -15,8 +15,8 @@
               </li>
             </mat-tree-node>
             <mat-nested-tree-node *matTreeNodeDef="let node; when: hasChild">
-              <li (click)="selectNode(node)" style="cursor: pointer">
-                <div class="mat-tree-node" (click)="activeNode = node">
+              <li style="cursor: pointer">
+                <div (click)="selectNode(node)"  class="mat-tree-node">
                   <button mat-icon-button matTreeNodeToggle class="toggle-btn"
                           [attr.aria-label]="'toggle ' + node.name">
                     <mat-icon class="mat-icon-rtl-mirror">
@@ -26,7 +26,7 @@
                   <div *ngIf="activeNode != node" class="icon-folder"></div>
                   <!-- <div *ngIf="activeNode == node" class="open-folder"></div> -->
                   <img *ngIf="activeNode == node" width="29px" src="https://img.icons8.com/color/48/000000/opened-folder.png">
-                  <span (appClickOutside)="changeParentNode()" [ngClass]="isSelected(node.id)"  class="node-name">{{node.name}}</span>
+                  <span [ngClass]="{ 'background-highlight': activeNode === node }" class="node-name">{{node.name}}</span>
                 </div>
                 <ul [class.folder-tree-invisible]="!treeControl.isExpanded(node)">
                   <ng-container matTreeNodeOutlet></ng-container>

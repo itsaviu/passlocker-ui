@@ -46,7 +46,9 @@ export class CreateVaultComponent implements OnInit {
     this.loading = true;
     this.managerService.createFolder(payload).subscribe((resp) => {
         this.loading = false;
-        this.managerService.updateVaultTree(1);
+        resp['new'] = this.data ? false : true;
+        console.log(resp);
+        this.managerService.updateVaultTree(resp);
         this.closeDialog();
     });
   }
