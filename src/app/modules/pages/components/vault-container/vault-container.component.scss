@@ -28,11 +28,21 @@
             transform: translateY(-0.05em);
         }
     }
-    ._title {
+    ._bread-crumbs {
         position: relative;
         top: 32px;
-        font-size: 25px;
+        font-size: 22px;
+        font-weight: 100;
+        color: #898d90;  
+        ._title {
+            color: black;
+            font-weight: normal;
+        }
+        .selectable:hover {
+            color: #ff2e2e;
+        }
     }
+    
     .create-pwd-btn {
         position: relative;
         float: right;
