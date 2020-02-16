@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { SessionManagerService } from 'src/app/utils/session-manager.service';
 import { AuthService, User } from 'src/app/service/auth.service';
-import { SnackerWorker } from 'src/app/shared/helper/snacker-worker';
+import { SnackerWorker, STATUS } from 'src/app/shared/helper/snacker-worker';
 
 @Component({
   selector: 'app-navbar',
@@ -18,7 +18,7 @@ export class NavbarComponent  {
       this.authService.getUser().subscribe((resp: User) => {
         this.profile = resp.username;
       }, (error) => {
-        this.snackerWorker.openSnackBar('Something went wrong', 'X');
+        this.snackerWorker.openSnackBar('Something went wrong', 'X', STATUS.FAIL);
       })
   }
 

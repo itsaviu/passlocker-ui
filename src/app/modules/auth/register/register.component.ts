@@ -5,7 +5,7 @@ import { AuthAppholder } from 'src/app/models/authappholder';
 import { from } from 'rxjs';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { AuthService } from 'src/app/service/auth.service';
-import { SnackerWorker } from 'src/app/shared/helper/snacker-worker';
+import { SnackerWorker, STATUS } from 'src/app/shared/helper/snacker-worker';
 
 @Component({
   selector: 'app-register',
@@ -56,15 +56,15 @@ export class RegisterComponent implements OnInit {
 
     this.loading = true;
     this.authService.registerUser(e.value).subscribe((resp) => {
-      this.snacker.openSnackBar("Sucessfully registered", 'X');
+      this.snacker.openSnackBar("Sucessfully registered", 'X', STATUS.SUCCES);
       this.router.navigateByUrl("/auth/login");
       this.loading = false;
       console.log(resp);
     }, (error) => {
       if(error.status === 400)
-        this.snacker.openSnackBar(error.error.message, 'X');
+        this.snacker.openSnackBar(error.error.message, 'X', STATUS.FAIL);
       else 
-        this.snacker.openSnackBar('Something went wrong !', 'X');
+        this.snacker.openSnackBar('Something went wrong !', 'X', STATUS.FAIL);
       this.loading = false;
       console.log(error);
     })

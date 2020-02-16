@@ -3,7 +3,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { ManagerService } from 'src/app/service/manager.service';
 import { PwdDialogData } from 'src/app/models/pwd-dialog-data';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { SnackerWorker } from 'src/app/shared/helper/snacker-worker';
+import { SnackerWorker, STATUS } from 'src/app/shared/helper/snacker-worker';
 
 
 @Component({
@@ -64,7 +64,7 @@ export class CreatePasswordComponent implements OnInit {
      this.managerService.updateVaultFolderSection(this.data.folderId);
      this.dialogRef.close();
     }, (error) => {
-      this.snackerWorker.openSnackBar("Something went wrong !", "X");
+      this.snackerWorker.openSnackBar("Something went wrong !", "X", STATUS.FAIL);
     }) 
   }
 
@@ -77,7 +77,7 @@ export class CreatePasswordComponent implements OnInit {
       this.managerService.updateVaultFolderSection(this.data.folderId);
       this.dialogRef.close();
      }, (error) => {
-       this.snackerWorker.openSnackBar("Something went wrong !", "X");
+       this.snackerWorker.openSnackBar("Something went wrong !", "X", STATUS.FAIL);
      }) 
   }
 

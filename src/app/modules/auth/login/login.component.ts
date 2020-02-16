@@ -4,7 +4,7 @@ import { dataFeeder } from 'src/app/constants/AuthInheritableData';
 import { AuthAppholder } from 'src/app/models/authappholder';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { AuthService } from 'src/app/service/auth.service';
-import { SnackerWorker } from 'src/app/shared/helper/snacker-worker';
+import { SnackerWorker, STATUS } from 'src/app/shared/helper/snacker-worker';
 import { SessionManagerService } from 'src/app/utils/session-manager.service';
 
 
@@ -52,18 +52,18 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     this.loading = true;
     this.authService.loginUser(this.loginForm.value).subscribe((resp) => {
-      this.snacker.openSnackBar("Login Sucessful !", "X");
+      this.snacker.openSnackBar("Login Sucessful !", "X", STATUS.SUCCES);
       console.log(resp);
       this.sessionManager.storeSession(resp);
       this.router.navigateByUrl('/pages');
       this.loading = false;
     }, (error) => {
       if(error.status === 400)  
-        this.snacker.openSnackBar(error.error.message, "X");
+        this.snacker.openSnackBar(error.error.message, "X", STATUS.FAIL);
       if(error.status === 401)  
-        this.snacker.openSnackBar("User not found, please verify your credentials", "X");
+        this.snacker.openSnackBar("User not found, please verify your credentials", "X", STATUS.FAIL);
       else 
-        this.snacker.openSnackBar('Something went wrong !', "X");  
+        this.snacker.openSnackBar('Something went wrong !', "X", STATUS.FAIL);  
       this.loading = false;
     })
   }
