@@ -1,5 +1,9 @@
 .footer {
-    display: flex;
     width: 100%;
-    text-align: center;
+    .singature {
+    float: right;
+    margin-right: 20px; 
+    color: #888888;
+    font-size: 15px;
+    }
 }
