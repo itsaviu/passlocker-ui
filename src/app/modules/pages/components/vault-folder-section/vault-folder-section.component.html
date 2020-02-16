@@ -1,17 +1,17 @@
 <div class="row">
-  <div [ngClass]="selectedVault ? 'col-5': 'col-12'" *ngIf="vaultList">
-    <div *ngIf="vaultList.subFolders.length > 0" class="folder-section section" style="border-bottom: 1px solid #ececec;">
+  <div [ngClass]="selectedVault ? 'col-5': 'col-12'" *ngIf="vaultData">
+    <div *ngIf="vaultData.subFolders.length > 0" class="folder-section section" style="border-bottom: 1px solid #ececec;">
         <div class="header">
           FOLDERS
         </div>
-        <mat-action-list class="folder-action-list" *ngFor="let item of vaultList.subFolders">
+        <mat-action-list class="folder-action-list" *ngFor="let item of vaultData.subFolders">
           <button mat-list-item class="hover-btn" (click)="loadData(item)">
              <div class="icon-folder" style="margin-right: 5px;"></div>
              <span class="attribute-name">{{item.name}}</span>
           </button>
         </mat-action-list>
     </div>
-    <div [hidden]="selectedVault" *ngIf="vaultList.vaultList.length > 0" class="password-section section">
+    <div [hidden]="selectedVault" *ngIf="vaultData.vaultList.length > 0" class="password-section section">
         <table class="table table-borderless">
         <thead>
           <tr>
@@ -21,7 +21,7 @@
             <td class="header" scope="col">NOTES</td>
           </tr>
         </thead>
-        <tbody *ngFor="let item of vaultList.vaultList">
+        <tbody *ngFor="let item of vaultData.vaultList">
           <tr class="pwd-item" (click)="updateSelectedVault(item)">
             <td>
               <span class="attribute-chip">{{getChipValue(item.name)}}</span>
@@ -40,11 +40,11 @@
         </tbody>
       </table>
     </div>
-    <div *ngIf="selectedVault && vaultList.vaultList.length > 0" class="folder-section section">
+    <div *ngIf="selectedVault && vaultData.vaultList.length > 0" class="folder-section section">
         <div class="header">
             PASSWORDS
           </div>
-          <mat-action-list class="pwd-item" *ngFor="let item of vaultList.vaultList">
+          <mat-action-list class="pwd-item" *ngFor="let item of vaultData.vaultList">
             <button mat-list-item class="hover-btn" [ngClass]="{'selected': item.id === selectedVault.id }" (click)="updateSelectedVault(item)">
                <span class="attribute-chip">{{getChipValue(item.name)}}</span>
                <span class="attribute-name">{{item.name}}</span>
@@ -102,14 +102,14 @@
           </div>
       </div>
   </div>
-  <div class="vault-empty-section"  *ngIf="!vaultList || (vaultList.subFolders.length == 0 && vaultList.vaultList.length == 0)">
-    <div [style.margin-top]="vaultList ? '8%' : '18%'">
+  <div class="vault-empty-section"  *ngIf="!vaultData || (vaultData.subFolders.length == 0 && vaultData.vaultList.length == 0)">
+    <div [style.margin-top]="vaultData ? '8%' : '18%'">
       <img src="/assets/images/empty-vault.svg" class="title-icon"/> 
-      <div *ngIf="!vaultList" class="vault-empty-add-pwd" (click)="openCreateVault()"> 
+      <div *ngIf="!vaultData" class="vault-empty-add-pwd" (click)="openCreateVault()"> 
           <span>Create your vault</span>
           <img class="add-icon" src="https://img.icons8.com/flat_round/64/000000/plus.png">
       </div>
-      <div *ngIf="vaultList">
+      <div *ngIf="vaultData">
         <div class="vault-empty-header">The vault is empty</div>
         <div class="vault-empty-add-pwd" (click)="createPassword()"> 
             <span>Add your first password, click here </span>

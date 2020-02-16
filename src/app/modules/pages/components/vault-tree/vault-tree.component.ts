@@ -1,8 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { VaultList, ManagerService } from 'src/app/service/manager.service';
+import { VaultList, ManagerService, Vault } from 'src/app/service/manager.service';
 import { NestedTreeControl } from '@angular/cdk/tree';
 import { MatTreeNestedDataSource, MatDialog } from '@angular/material';
-import { SnackerWorker } from 'src/app/shared/helper/snacker-worker';
+import { SnackerWorker, STATUS } from 'src/app/shared/helper/snacker-worker';
 import { CreateVaultComponent } from '../create-vault/create-vault.component';
 import { VaultTreeWorker } from '../../worker/vault-tree-worker';
 
@@ -14,6 +14,8 @@ import { VaultTreeWorker } from '../../worker/vault-tree-worker';
 export class VaultTreeComponent implements OnInit {
   
   public activeNode: VaultList;
+
+  public treeNode: VaultList[];
 
   treeControl = new NestedTreeControl<VaultList>(node => node.subFolders);
   dataSource = new MatTreeNestedDataSource<VaultList>();
@@ -50,33 +52,36 @@ export class VaultTreeComponent implements OnInit {
         this.pushVaultTree(toBeActiveNodeId.id, toBeActiveNodeId.new);
       }
       if(this.activeNode) {
-        this.managerService.updateVaultContainer(this.activeNode);
         this.managerService.updateVaultFolderSection(this.activeNode.id);
       }
     }, (error) => {
-      this.snackerWorker.openSnackBar('Something went wrong', 'X')
+      this.snackerWorker.openSnackBar('Something went wrong', 'X', STATUS.FAIL)
     });    
   }
 
   selectNode(node) {
     if(node && this.activeNode && this.activeNode.id != node.id) {
       this.activeNode = node;
-      this.managerService.updateVaultContainer(node);
       this.managerService.updateVaultFolderSection(node.id);
     }
   }
 
   pushVaultTree(id, selectNode: boolean = true) {
+    this.treeNode = [];
     let resultNode: VaultList = this.getNodeToPush(id, this.dataSource.data, selectNode);
     if(resultNode) {
-      this.treeControl.expandDescendants(resultNode);
+      this.treeControl.dataNodes
+      this.treeNode.reverse().forEach(node => 
+        this.treeControl.expand(node)
+      );
     }
   }
 
   getNodeToPush(id, nodeList: VaultList[], selectedNode: boolean) {  
-    for(let i = 0; i < nodeList.length ; i++) { 
+    for(let i = 0; i < nodeList.length ; i++) {
       let resultNode: VaultList = this.findNode(id, nodeList[i]);
       if(resultNode) {
+        this.treeNode.push(nodeList[i]);
         this.activeNode = selectedNode ? resultNode : nodeList[i];
         return nodeList[i];
       }
@@ -85,13 +90,17 @@ export class VaultTreeComponent implements OnInit {
   }
 
   findNode(id, node: VaultList) {
-    if(node.id === id) 
+    if(node.id === id) {
       return node;
+    }
     
     for(let i = 0; i < node.subFolders.length ; i++) {
+
       let resultNode: VaultList = this.findNode(id, node.subFolders[i]);
-      if(resultNode)
+      if(resultNode) {
+        this.treeNode.push(node.subFolders[i]);
         return resultNode;
+      }
     }
 
     return null;

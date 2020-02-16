@@ -3,6 +3,16 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Observable, Subject } from 'rxjs';
 
+export interface VaultDetailResp {
+  breadCrumbs: VaultBreadCrumbs[];
+  folders: VaultList;
+}
+
+export interface VaultBreadCrumbs {
+  id: number;
+  name: string;
+}
+
 export interface VaultList {
   id: number,
   name: string,
@@ -28,16 +38,10 @@ export class ManagerService {
 
   private vaultTree = new Subject<any>();
 
-  private vaultContainer = new Subject<any>();
-
   private vaultFolderSection = new Subject<any>();
 
   updateVaultTree(value) {
     this.vaultTree.next(value);
-  }
-
-  updateVaultContainer(value) {
-    this.vaultContainer.next(value);
   }
 
   updateVaultFolderSection(value) {
@@ -46,10 +50,6 @@ export class ManagerService {
 
   checkIfVaultTreeUpdate(): Observable<object> {
     return this.vaultTree.asObservable();
-  }
-
-  checkIfVaultContainerUpdate(): Observable<object> {
-    return this.vaultContainer.asObservable();
   }
 
   checkIfVaultFolderSectionUpdate(): Observable<object> {
@@ -64,8 +64,8 @@ export class ManagerService {
     return this.httpService.post(environment.MANAGER_URL + '/folders/create', payload);
   }
 
-  fetchVaultDetails(id): Observable<VaultList> {
-    return <Observable<VaultList>> this.httpService.get(environment.MANAGER_URL + '/folders/' + id)
+  fetchVaultDetails(id): Observable<VaultDetailResp> {
+    return <Observable<VaultDetailResp>> this.httpService.get(environment.MANAGER_URL + '/folders/' + id)
   }
 
   storePassword(payload) {
